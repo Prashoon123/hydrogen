@@ -4,6 +4,7 @@ import {getParsedMetafield} from '../../../utilities/tests/metafields';
 import {mountWithShopifyProvider} from '../../../utilities/tests/shopify_provider';
 import {RawHtml} from '../../RawHtml';
 import {StarRating} from '../components';
+import {ProductProvider} from '../../ProductProvider';
 
 describe('<Metafield />', () => {
   it('renders nothing when the metafield value is undefined', () => {
@@ -735,25 +736,16 @@ describe('<Metafield />', () => {
   });
 
   describe('with `product_reference` type metafield', () => {
-    it('renders the product reference as a string in a `span` by default', () => {
+    it('renders a `ProductProvider` with its children by default', () => {
       const metafield = getParsedMetafield({type: 'product_reference'});
       const component = mountWithShopifyProvider(
-        <Metafield metafield={metafield} />
+        <Metafield metafield={metafield}>
+          <p>Hello world</p>
+        </Metafield>
       );
 
-      expect(component).toContainReactComponent('span', {
-        children: metafield.value,
-      });
-    });
-
-    it('renders the product reference as a string in the element specified by the `as` prop', () => {
-      const metafield = getParsedMetafield({type: 'product_reference'});
-      const component = mountWithShopifyProvider(
-        <Metafield metafield={metafield} as="p" />
-      );
-
-      expect(component).toContainReactComponent('p', {
-        children: metafield.value,
+      expect(component).toContainReactComponent(ProductProvider, {
+        children: 'Hello world',
       });
     });
 
@@ -770,33 +762,6 @@ describe('<Metafield />', () => {
       expect(children).toHaveBeenCalledWith({
         ...metafield,
         value: metafield.value,
-      });
-    });
-
-    it('renders its children', () => {
-      const metafield = getParsedMetafield({type: 'product_reference'});
-      const component = mountWithShopifyProvider(
-        <Metafield metafield={metafield}>
-          {({value}) => {
-            return <p>The reference is {value}</p>;
-          }}
-        </Metafield>
-      );
-
-      expect(component).toContainReactComponent('p', {
-        children: [`The reference is `, metafield.value],
-      });
-    });
-
-    it('allows passthrough props', () => {
-      const component = mountWithShopifyProvider(
-        <Metafield
-          metafield={getParsedMetafield({type: 'product_reference'})}
-          className="emphasized"
-        />
-      );
-      expect(component).toContainReactComponent('span', {
-        className: 'emphasized',
       });
     });
   });

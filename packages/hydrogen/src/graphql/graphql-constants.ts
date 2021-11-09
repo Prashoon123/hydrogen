@@ -2194,9 +2194,52 @@ fragment Model3DFragment on Model3d {
 *   namespace
 *   key
 *   value
-*   createdAt
-*   updatedAt
 *   description
+*   reference @include(if: $includeReferenceMetafieldDetails){
+*     ... on Product {
+*       handle
+*       id
+*       title
+*       compareAtPriceRange {
+*         maxVariantPrice {
+*           ...MoneyFragment
+*         }
+*         minVariantPrice {
+*           ...MoneyFragment
+*         }
+*       }
+*       priceRange {
+*         maxVariantPrice {
+*           ...MoneyFragment
+*         }
+*         minVariantPrice {
+*           ...MoneyFragment
+*         }
+*       }
+*       variants (first: 1) {
+*         edges {
+*           node {
+*             id
+*             title
+*             availableForSale
+*             image {
+*               ...ImageFragment
+*             }
+*             priceV2 {
+*               ...MoneyFragment
+*             }
+*             compareAtPriceV2 {
+*               ...MoneyFragment
+*             }
+*             selectedOptions {
+*               name
+*               value
+*             }
+*           }
+*         }
+*       }
+*     }
+*   }
 * }
 
 *```
@@ -2207,9 +2250,52 @@ export const MetafieldFragment: string = `fragment MetafieldFragment on Metafiel
   namespace
   key
   value
-  createdAt
-  updatedAt
   description
+  reference @include(if: $includeReferenceMetafieldDetails){
+    ... on Product {
+      handle
+      id
+      title
+      compareAtPriceRange {
+        maxVariantPrice {
+          ...MoneyFragment
+        }
+        minVariantPrice {
+          ...MoneyFragment
+        }
+      }
+      priceRange {
+        maxVariantPrice {
+          ...MoneyFragment
+        }
+        minVariantPrice {
+          ...MoneyFragment
+        }
+      }
+      variants (first: 1) {
+        edges {
+          node {
+            id
+            title
+            availableForSale
+            image {
+              ...ImageFragment
+            }
+            priceV2 {
+              ...MoneyFragment
+            }
+            compareAtPriceV2 {
+              ...MoneyFragment
+            }
+            selectedOptions {
+              name
+              value
+            }
+          }
+        }
+      }
+    }
+  }
 }
 `;
 
@@ -2341,9 +2427,52 @@ export const MoneyFragment: string = `fragment MoneyFragment on MoneyV2 {
  *   namespace
  *   key
  *   value
- *   createdAt
- *   updatedAt
  *   description
+ *   reference @include(if: $includeReferenceMetafieldDetails){
+ *     ... on Product {
+ *       handle
+ *       id
+ *       title
+ *       compareAtPriceRange {
+ *         maxVariantPrice {
+ *           ...MoneyFragment
+ *         }
+ *         minVariantPrice {
+ *           ...MoneyFragment
+ *         }
+ *       }
+ *       priceRange {
+ *         maxVariantPrice {
+ *           ...MoneyFragment
+ *         }
+ *         minVariantPrice {
+ *           ...MoneyFragment
+ *         }
+ *       }
+ *       variants (first: 1) {
+ *         edges {
+ *           node {
+ *             id
+ *             title
+ *             availableForSale
+ *             image {
+ *               ...ImageFragment
+ *             }
+ *             priceV2 {
+ *               ...MoneyFragment
+ *             }
+ *             compareAtPriceV2 {
+ *               ...MoneyFragment
+ *             }
+ *             selectedOptions {
+ *               name
+ *               value
+ *             }
+ *           }
+ *         }
+ *       }
+ *     }
+ *   }
  * }
  *
  * fragment VariantFragment on ProductVariant {
@@ -2630,9 +2759,52 @@ fragment MetafieldFragment on Metafield {
   namespace
   key
   value
-  createdAt
-  updatedAt
   description
+  reference @include(if: $includeReferenceMetafieldDetails){
+    ... on Product {
+      handle
+      id
+      title
+      compareAtPriceRange {
+        maxVariantPrice {
+          ...MoneyFragment
+        }
+        minVariantPrice {
+          ...MoneyFragment
+        }
+      }
+      priceRange {
+        maxVariantPrice {
+          ...MoneyFragment
+        }
+        minVariantPrice {
+          ...MoneyFragment
+        }
+      }
+      variants (first: 1) {
+        edges {
+          node {
+            id
+            title
+            availableForSale
+            image {
+              ...ImageFragment
+            }
+            priceV2 {
+              ...MoneyFragment
+            }
+            compareAtPriceV2 {
+              ...MoneyFragment
+            }
+            selectedOptions {
+              name
+              value
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 fragment VariantFragment on ProductVariant {

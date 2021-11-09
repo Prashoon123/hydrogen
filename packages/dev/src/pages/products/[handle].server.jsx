@@ -1,4 +1,8 @@
-import {useShopQuery, ProductProviderFragment} from '@shopify/hydrogen';
+import {
+  useShopQuery,
+  ProductProviderFragment,
+  MetafieldWithProductReferenceFragment,
+} from '@shopify/hydrogen';
 import {useParams} from 'react-router-dom';
 import gql from 'graphql-tag';
 
@@ -32,6 +36,7 @@ const QUERY = gql`
   query product(
     $country: CountryCode
     $handle: String!
+    $includeReferenceMetafieldDetails: Boolean = true
     $numProductMetafields: Int = 20
     $numProductVariants: Int = 250
     $numProductMedia: Int = 6
