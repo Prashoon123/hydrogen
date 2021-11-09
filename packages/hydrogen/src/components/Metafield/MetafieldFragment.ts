@@ -7,8 +7,11 @@ export type MetafieldFragmentFragment = {__typename?: 'Metafield'} & Pick<
   'id' | 'type' | 'namespace' | 'key' | 'value' | 'description'
 > & {
     reference?: Types.Maybe<
-      | {__typename?: 'MediaImage'}
-      | {__typename?: 'Page'}
+      | ({__typename?: 'MediaImage'} & Pick<
+          Types.MediaImage,
+          'id' | 'mediaContentType'
+        >)
+      | ({__typename?: 'Page'} & Pick<Types.Page, 'id'>)
       | ({__typename?: 'Product'} & Pick<
           Types.Product,
           'handle' | 'id' | 'title'
@@ -46,6 +49,6 @@ export type MetafieldFragmentFragment = {__typename?: 'Metafield'} & Pick<
               >;
             };
           })
-      | {__typename?: 'ProductVariant'}
+      | ({__typename?: 'ProductVariant'} & Pick<Types.ProductVariant, 'id'>)
     >;
   };

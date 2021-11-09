@@ -2239,6 +2239,16 @@ fragment Model3DFragment on Model3d {
 *         }
 *       }
 *     }
+*     ... on MediaImage {
+*       id
+*       mediaContentType
+*     }
+*     ... on ProductVariant {
+*       id
+*     }
+*     ... on Page {
+*       id
+*     }
 *   }
 * }
 
@@ -2294,6 +2304,16 @@ export const MetafieldFragment: string = `fragment MetafieldFragment on Metafiel
           }
         }
       }
+    }
+    ... on MediaImage {
+      id
+      mediaContentType
+    }
+    ... on ProductVariant {
+      id
+    }
+    ... on Page {
+      id
     }
   }
 }
@@ -2471,6 +2491,16 @@ export const MoneyFragment: string = `fragment MoneyFragment on MoneyV2 {
  *           }
  *         }
  *       }
+ *     }
+ *     ... on MediaImage {
+ *       id
+ *       mediaContentType
+ *     }
+ *     ... on ProductVariant {
+ *       id
+ *     }
+ *     ... on Page {
+ *       id
  *     }
  *   }
  * }
@@ -2803,6 +2833,16 @@ fragment MetafieldFragment on Metafield {
           }
         }
       }
+    }
+    ... on MediaImage {
+      id
+      mediaContentType
+    }
+    ... on ProductVariant {
+      id
+    }
+    ... on Page {
+      id
     }
   }
 }

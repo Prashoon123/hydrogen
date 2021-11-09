@@ -63,6 +63,9 @@ export function getRawMetafield(
     type,
     updatedAt: metafield.updatedAt ?? faker.date.recent(),
     value: metafield.value ?? getMetafieldValue(type),
+    reference: Object.keys(metafield).includes('reference')
+      ? metafield.reference
+      : getMetafieldValue(type),
   };
 }
 
@@ -74,6 +77,7 @@ export function getMetafieldValue(type: MetafieldType) {
       return `${faker.random.words()}\n${faker.random.words()}\n${faker.random.words()}`;
     case 'page_reference':
     case 'product_reference':
+      return getProduct() as any;
     case 'variant_reference':
     case 'file_reference':
       return faker.random.words();
@@ -168,7 +172,11 @@ export function getParsedMetafield(
     case 'single_line_text_field':
     case 'multi_line_text_field':
     case 'product_reference':
-      field.reference = getProduct() as any;
+      if (Object.keys(metafield).includes('reference')) {
+        field.reference = metafield.reference;
+      } else {
+        field.reference = getProduct() as any;
+      }
       break;
     case 'page_reference':
     case 'variant_reference':

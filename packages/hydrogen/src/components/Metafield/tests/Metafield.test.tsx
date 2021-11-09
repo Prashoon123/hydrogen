@@ -736,32 +736,116 @@ describe('<Metafield />', () => {
   });
 
   describe('with `product_reference` type metafield', () => {
-    it('renders a `ProductProvider` with its children by default', () => {
-      const metafield = getParsedMetafield({type: 'product_reference'});
-      const component = mountWithShopifyProvider(
-        <Metafield metafield={metafield}>
-          <p>Hello world</p>
-        </Metafield>
-      );
+    describe('when `reference` is undefined', () => {
+      it('renders the value as a string in a `span` by default', () => {
+        const metafield = getParsedMetafield({
+          type: 'product_reference',
+          reference: undefined,
+        });
+        const component = mountWithShopifyProvider(
+          <Metafield metafield={metafield} />
+        );
 
-      expect(component).toContainReactComponent(ProductProvider, {
-        children: 'Hello world',
+        expect(component).toContainReactComponent('span', {
+          children: metafield.value,
+        });
+      });
+
+      it('renders the value as a string in the element specified by the `as` prop', () => {
+        const metafield = getParsedMetafield({
+          type: 'product_reference',
+          reference: undefined,
+        });
+        const component = mountWithShopifyProvider(
+          <Metafield metafield={metafield} as="p" />
+        );
+
+        expect(component).toContainReactComponent('p', {
+          children: metafield.value,
+        });
+      });
+
+      it('passes the metafield as a render prop to the children render function', () => {
+        const children = jest.fn().mockImplementation(() => {
+          return null;
+        });
+        const metafield = getParsedMetafield({
+          type: 'product_reference',
+          reference: undefined,
+        });
+
+        mountWithShopifyProvider(
+          <Metafield metafield={metafield}>{children}</Metafield>
+        );
+
+        expect(children).toHaveBeenCalledWith({
+          ...metafield,
+          value: metafield.value,
+        });
+      });
+
+      it('renders its children', () => {
+        const metafield = getParsedMetafield({
+          type: 'product_reference',
+          reference: undefined,
+        });
+        const component = mountWithShopifyProvider(
+          <Metafield metafield={metafield}>
+            {({value}) => {
+              return <p>The reference is {value}</p>;
+            }}
+          </Metafield>
+        );
+
+        expect(component).toContainReactComponent('p', {
+          children: [`The reference is `, metafield.value],
+        });
+      });
+
+      it('allows passthrough props', () => {
+        const component = mountWithShopifyProvider(
+          <Metafield
+            metafield={getParsedMetafield({
+              type: 'product_reference',
+              reference: undefined,
+            })}
+            className="emphasized"
+          />
+        );
+        expect(component).toContainReactComponent('span', {
+          className: 'emphasized',
+        });
       });
     });
 
-    it('passes the metafield as a render prop to the children render function', () => {
-      const children = jest.fn().mockImplementation(() => {
-        return null;
+    describe('when `reference` is not undefined', () => {
+      it('renders a `ProductProvider` with its children by default', () => {
+        const metafield = getParsedMetafield({type: 'product_reference'});
+        const component = mountWithShopifyProvider(
+          <Metafield metafield={metafield}>
+            <p>Hello world</p>
+          </Metafield>
+        );
+
+        expect(component).toContainReactComponent(ProductProvider, {
+          children: 'Hello world',
+        });
       });
-      const metafield = getParsedMetafield({type: 'product_reference'});
 
-      mountWithShopifyProvider(
-        <Metafield metafield={metafield}>{children}</Metafield>
-      );
+      it('passes the metafield as a render prop to the children render function', () => {
+        const children = jest.fn().mockImplementation(() => {
+          return null;
+        });
+        const metafield = getParsedMetafield({type: 'product_reference'});
 
-      expect(children).toHaveBeenCalledWith({
-        ...metafield,
-        value: metafield.value,
+        mountWithShopifyProvider(
+          <Metafield metafield={metafield}>{children}</Metafield>
+        );
+
+        expect(children).toHaveBeenCalledWith({
+          ...metafield,
+          value: metafield.value,
+        });
       });
     });
   });
